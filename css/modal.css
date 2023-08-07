@@ -213,13 +213,15 @@
   }
 
 /* CODE_MODIF_START ############################################################ */
+
 /*
-Quand [.formdata] ou [.checkbox2-label] possède l'attribut [data-error]
-(injecté par le JS), alors le [after] a cette mise en forme et le contenu
-de ce [after] est définit par la valeur de la propriété [content].
-La valeur de la propriété [content] [attr(data-error)] correspond
-à la valeur donnée à l'attribut [data-error] dans le JS.
+QUAND [.FORMDATA] OU [.CHECKBOX2-LABEL] POSSÈDE L'ATTRIBUT [DATA-ERROR]
+(INJECTÉ PAR LE JS), ALORS LE [AFTER] A CETTE MISE EN FORME ET LE CONTENU
+DE CE [AFTER] EST DÉFINIT PAR LA VALEUR DE LA PROPRIÉTÉ [CONTENT].
+LA VALEUR DE LA PROPRIÉTÉ [CONTENT] [ATTR(DATA-ERROR)] CORRESPOND
+À LA VALEUR DONNÉE À L'ATTRIBUT [DATA-ERROR] DANS LE JS.
 */
+
   .formData[data-error]::after, .checkbox2-label[data-error]::after {
     content: attr(data-error);
     /* font-size: 0.4em; */
@@ -250,7 +252,8 @@ La valeur de la propriété [content] [attr(data-error)] correspond
   [for="checkbox1"]::after {
     font-weight: bolder;
   }
-/* Le code commenté ci-dessous n'est pas nécessaire à mes yeux. */
+
+/* LE CODE COMMENTÉ CI-DESSOUS N'EST PAS NÈCESSAIRE À MES YEUX. */
 
   /* .formData[data-error-visible="true"]::after {
     opacity: 1;
@@ -258,8 +261,7 @@ La valeur de la propriété [content] [attr(data-error)] correspond
   .formData[data-error-visible="true"] .text-control {
     border: 2px solid #e54858;
   } */
-  /* 
-  input[data-error]::after {
+  /* input[data-error]::after {
       content: attr(data-error);
       font-size: 0.4em;
       color: red;
