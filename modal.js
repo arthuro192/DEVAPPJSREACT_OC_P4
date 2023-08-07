@@ -54,7 +54,7 @@
   let input_birthdate_check = false
   let input_qty_check = false
   let input_location_check = false
-  let input_checkbox_check = true
+  let input_checkbox_check = false
 
   let form_check = [
       input_first_check,
@@ -71,64 +71,104 @@
 
     event.preventDefault(); // BLOCAGE_RECHARGEMENT_PAGE
 
-// CTRL_LOCATION_TOURNOIS_PART_1_START #######################
-// CTRL > UN BOUTON RADIO DOIT ÊTRE SÉLECTIONNÉ.
+    console.log(form_check)
 
-      if (form_check[5] == false) {
+    ctrl_first_last_name()
+    ctrl_email()
+    ctrl_birthdate()
+    ctrl_nb_tour()
+    ctrl_locate_tour()
+    ctrl_checkbox()
 
-        parent_location.setAttribute("data-error", "Il faut sélectionner un tournoi.")
+    let compteur = 0
 
-      }
+    for (let i = 0; i < form_check.length; i++) {
 
-// CTRL_LOCATION_TOURNOIS_PART_1_STOP ########################
+      if (form_check[i] == true) {
 
-      let compteur = 0
+        compteur += 1
 
-      for (let i = 0; i < form_check.length; i++) {
+      } 
 
-        if (form_check[i] == true) {
+    }
 
-          compteur += 1
-
-        } 
-
-      }
-
-      if (compteur == form_check.length) {
+    if (compteur == form_check.length) {
 
 // MÉTHODE_1 ----------------------------
 // = ON VIDE L'INTÉGRALITÉ DU <FORM> POUR Y INJECTER UN HTML ENTIÈREMENT PERSONNALISÉ,
 // EN RECRÉANT LE BOUTON À L'IDENTIQUE, QUI REPREND DONC TOUS SES ATTRIBUTS.
 // LE CSS [.THE_END] & [.THE_END P] EST CRÉÉ EN CONSÉQUENCE.
 
-        let the_end = `
-        <div class="the_end">
-        <p>Merci pour<br>
-        votre inscription</p>
-        </div>
-        <input class="btn-submit" type="submit" value="Fermer">
-        `
+      let the_end = `
+      <div class="the_end">
+      <p>Merci pour<br>
+      votre inscription</p>
+      </div>
+      <input class="btn-submit" type="submit" value="Fermer">
+      `
 
-        form.innerHTML = the_end
+      form.innerHTML = the_end
 
-        let input_submit = document.querySelector(".btn-submit")
+      let input_submit = document.querySelector(".btn-submit")
 
-          input_submit.addEventListener("click", () => {
-          
-            modalbg.removeAttribute("style")
-          
-          })
+      input_submit.addEventListener("click", () => {
+      
+        modalbg.removeAttribute("style")
+      
+      })
 
-        } else {
+    } else {
 
-          console.log("TOUTES LES VALEURS NE SONT PAS RENSEIGNÉES CORRECTEMENTS, NE PAS AFFICHER LA VALIDATION DE L'INSCRIPTION")
+      console.log("TOUTES LES VALEURS NE SONT PAS RENSEIGNÉES CORRECTEMENTS, NE PAS AFFICHER LA VALIDATION DE L'INSCRIPTION.")
 
-      }
+    }
 
   });
 
-// CTRL_PRÉNOM_&_NOM ##############################################################
+// FUNCTION_CTRL_PRÉNOM_&_NOM #####################################################
 // CTRL > UN MINIMUM DE 2 CARACTÈRES, NON VIDE, DOIT ÊTRE SAISI.
+
+function ctrl_first_last_name() {
+
+  for (let i = 0; i < input_array.length; i++) { // ON BOUCLE SUR CHACUN DES <INPUT> DU TABLEAU.
+
+    let input_array_i_value = input_array[i].value // ON RÉCUPÈRE SA VALEUR ...
+
+    if (input_array_i_value.length < 2) { // SI LE CTRL EST KO :
+
+      if (input_array[i] === input_first) { // ET QUE CELA CONCERNE L'INPUT #FIRST
+
+        form_check[0] = false
+        parent_first.setAttribute("data-error", "Il faut un minimum de 2 caractères.")
+
+      } else { // ET QUE CELA CONCERNE L'INPUT #LAST
+
+        form_check[1] = false
+        parent_last.setAttribute("data-error", "Il faut un minimum de 2 caractères.")
+
+      }
+
+    } else { // SI LE CTRL EST OK :
+
+      if (input_array[i] === input_first) { // ET QUE CELA CONCERNE L'INPUT #FIRST
+
+        form_check[0] = true
+        parent_first.removeAttribute("data-error")
+
+      } else { // ET QUE CELA CONCERNE L'INPUT #LAST
+
+        form_check[1] = true
+        parent_last.removeAttribute("data-error")
+
+      }
+
+    }
+
+  }
+
+}
+
+// CTRL_PRÉNOM_&_NOM ##############################################################
 
     let input_first = document.getElementById("first")
     let input_last = document.getElementById("last")
@@ -140,50 +180,16 @@
 
       input_array[i].addEventListener ('change', () => { // À CHAQUE FOIS QU'UN <INPUT> EST DÉSÉLECTIONNÉ ...
 
-        let input_array_i_value = input_array[i].value // ON RÉCUPÈRE SA VALEUR ...
-
-        if (input_array_i_value.length < 2) { // SI LE CTRL EST KO :
-
-          if (input_array[i] === input_first) { // ET QUE CELA CONCERNE L'INPUT #FIRST
-
-            form_check[0] = false
-            parent_first.setAttribute("data-error", "Il faut un minimum de 2 caractères.")
-
-          } else { // ET QUE CELA CONCERNE L'INPUT #LAST
-
-            form_check[1] = false
-            parent_last.setAttribute("data-error", "Il faut un minimum de 2 caractères.")
-
-          }
-
-        } else { // SI LE CTRL EST OK :
-
-          if (input_array[i] === input_first) { // ET QUE CELA CONCERNE L'INPUT #FIRST
-
-            form_check[0] = true
-            parent_first.removeAttribute("data-error")
-
-          } else { // ET QUE CELA CONCERNE L'INPUT #LAST
-
-            form_check[1] = true
-            parent_last.removeAttribute("data-error")
-
-          }
-
-        }
+        ctrl_first_last_name()
 
       })
 
     }
 
-// CTRL_EMAIL #####################################################################
+// FUNCTION_CTRL_E-MAIL ###########################################################
 // CTRL > MODÈLE REGEX : [a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+
 
-    let input_mail = document.getElementById("email")
-    let parent_mail = input_mail.parentElement
-    let regex_mail = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
-
-    input_mail.addEventListener ('change', () => {
+    function ctrl_email() {
 
       let input_mail_value = input_mail.value
       let resultat = regex_mail.test(input_mail_value)
@@ -200,19 +206,25 @@
 
       }
 
+    }
+
+// CTRL_E-MAIL ####################################################################
+
+    let input_mail = document.getElementById("email")
+    let parent_mail = input_mail.parentElement
+    let regex_mail = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+
+    input_mail.addEventListener ('change', () => {
+
+      ctrl_email()
+
     })
 
-// CTRL_DATE_NAISSANCE ############################################################
+// FUNCTION_CTRL_DATE_DE_NAISSANCE ################################################
 // CTRL > LA DATE NE PEUT PAS ÊTRE DANS LE FUTUR.
 // CTRL > L'UTILISATEUR NE PEUT PAS ÊTRE MINEUR.
 
-let input_birthdate = document.getElementById("birthdate");
-let parent_birthdate = input_birthdate.parentElement
-let date = new Date();
-let date_format_ok_string = date.toISOString().split('T')[0]
-let date_format_ok_obj = new Date(date_format_ok_string)
-
-input_birthdate.addEventListener ('change', () => {
+function ctrl_birthdate() {
 
   let input_birthdate_value_string = input_birthdate.value
   let input_birthdate_value_obj = new Date(input_birthdate_value_string)
@@ -231,6 +243,10 @@ input_birthdate.addEventListener ('change', () => {
     form_check[3] = false
     parent_birthdate.setAttribute("data-error", "Il faut la majorité pour pouvoir s'inscrire.")
 
+  } else if (input_birthdate.value == "") {
+
+    parent_birthdate.setAttribute("data-error", "Date de naissance incorrecte")
+
   } else {
 
     form_check[3] = true
@@ -238,16 +254,26 @@ input_birthdate.addEventListener ('change', () => {
 
   }
 
+}
+
+// CTRL_DATE_DE_NAISSANCE #########################################################
+
+let input_birthdate = document.getElementById("birthdate");
+let parent_birthdate = input_birthdate.parentElement
+let date = new Date();
+let date_format_ok_string = date.toISOString().split('T')[0]
+let date_format_ok_obj = new Date(date_format_ok_string)
+
+input_birthdate.addEventListener ('change', () => {
+
+  ctrl_birthdate()
+
 })
 
-// CTRL_NB_TOURNOIS ###############################################################
-// CTRL > UNE VALEUR NUMÉRIQUE DOIT ÊTRE SAISIE.
+// FUNCTION_CTRL_NB_TOURNOIS ######################################################
+// CTRL > UNE VALEUR NUMÉRIQUE POSITIVE DOIT ÊTRE SAISIE.
 
-let input_qty = document.getElementById("quantity")
-let regex_qty = new RegExp("^[0-9]+$")
-let parent_qty = input_qty.parentElement
-
-input_qty.addEventListener ('change', () => {
+function ctrl_nb_tour() {
 
   let input_qty_value = input_qty.value
   let resultat = regex_qty.test(input_qty_value)
@@ -264,10 +290,44 @@ input_qty.addEventListener ('change', () => {
 
   }
 
+}
+// CTRL_NB_TOURNOIS ###############################################################
+
+let input_qty = document.getElementById("quantity")
+let regex_qty = new RegExp("^[0-9]+$")
+let parent_qty = input_qty.parentElement
+
+input_qty.addEventListener ('change', () => {
+
+  ctrl_nb_tour()
+
 })
 
-// CTRL_LOCATION_TOURNOIS_PART_2 ##################################################
+// FUNCTION_CTRL_LOCALISATION_TOURNOI #############################################
 // CTRL > UN BOUTON RADIO DOIT ÊTRE SÉLECTIONNÉ.
+
+function ctrl_locate_tour() {
+
+  for (let i = 0; i < input_location.length; i++) {
+
+      if (input_location[i].checked) {
+
+        form_check[5] = true
+        parent_location.removeAttribute("data-error")
+        break
+
+      } else {
+        
+        form_check[5] = false
+        parent_location.setAttribute("data-error", "Il faut sélectionner un tournoi.")
+
+      }
+
+  }
+
+}
+
+// CTRL_LOCALISATION_TOURNOI ######################################################
 
 let input_location = document.querySelectorAll("input[name='location']")
 let parent_location = input_location[0].parentElement
@@ -276,59 +336,59 @@ let parent_location = input_location[0].parentElement
 
     input_location[i].addEventListener ('change', () => {
 
-      if (input_location[i].checked) {
-
-        form_check[5] = true
-        parent_location.removeAttribute("data-error")
-
-      }
+      ctrl_locate_tour()
 
     })
 
   }
 
+// FUNCTION_CTRL_CHECKBOX #########################################################
+// CTRL > LA CASE DES CONDITIONS D'UTILISATION DOIT ÊTRE COCHÉE.
+// CTRL > L'AUTRE CASE EST FACULTATIVE.
+
+function ctrl_checkbox() {
+
+  for (let i = 0; i < input_checkbox.length; i++) {
+
+    let parent_checkbox = input_checkbox[i].labels[0]
+    
+    if (input_checkbox[i].id === "checkbox1") {
+
+      if (input_checkbox[i].checked === false) {
+
+        form_check[6] = false
+        parent_checkbox.setAttribute("data-error", "Il faut accepter les conditions d'utilisation.")
+
+      } else {
+
+        form_check[6] = true
+        parent_checkbox.removeAttribute("data-error")
+
+      }
+
+    } else {
+        
+        if (input_checkbox[i].checked === true) {
+          
+          console.log("%Traitement à effectuer% = informer l'utilisateur des évènements à venir%")
+
+      }
+
+    }
+
+  }
+
+}
+
 // CTRL_CHECKBOX ##################################################################
-// CTRL > LA CASE DES CONDITIONS D'UTILISATION DOIT ÊTRE COCHÉE, L'AUTRE CASE EST FACULTATIVE.
 
 let input_checkbox = document.querySelectorAll("input[type='checkbox']")
 
 for (let i = 0; i < input_checkbox.length; i++) {
 
-  let parent_checkbox = input_checkbox[i].labels[0]
-
   input_checkbox[i].addEventListener('change', () => {
 
-      if (input_checkbox[i].id === "checkbox1") {
-
-        if (input_checkbox[i].checked === false) {
-
-          form_check[6] = false
-          // parent_checkbox = input_checkbox[i].labels[0]
-          parent_checkbox.setAttribute("data-error", "Il faut accepter les conditions d'utilisation.")
-          console.log(form_check[6])
-
-        } else {
-
-          form_check[6] = true
-          parent_checkbox.removeAttribute("data-error")
-          console.log(form_check[6])
-
-
-        }
-
-      } else {
-          
-          if (input_checkbox[i].checked === true) {
-            
-            console.log("%Traitement à effectuer% = informer l'utilisateur des évènements à venir%")
-
-        } else {
-
-            console.clear()
-
-        }
-
-      }
+    ctrl_checkbox()
 
   })
 
