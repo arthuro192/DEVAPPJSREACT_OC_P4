@@ -1,22 +1,22 @@
 
-// CODE_EN_PLACE ######################################################################################################################################################
+// CODE_IN_PLACE ######################################################################################################################################################
 
 // SELECTION_HTML_TAGS ############################################################
 
   const modalbg = document.querySelector(".bground");
-  // <DIV> ENGLOBANT LE <FORM> AVEC UN [DISPLAY:NONE] PAR DÉFAUT & :
-  // UN [DISPLAY:BLOCK] = [FUNCTION LAUNCHMODAL()]
-  // QUAND "CLICK" SUR <BUTTON CLASS="BTN-SIGNUP MODAL-BTN"> = [=> BTN.ADDEVENTLISTENER]
+  // <DIV> INCLUDING THE <FORM> WITH A [DISPLAY:NONE] BY DEFAULT & :
+  // A [DISPLAY:BLOCK] = [FUNCTION LAUNCHMODAL()]
+  // WHEN "CLICK" ON <BUTTON CLASS="BTN-SIGNUP MODAL-BTN"> = [=> BTN.ADDEVENTLISTENER]
 
   const modalBtn = document.querySelectorAll(".modal-btn");
   // <BUTTON CLASS="BTN-SIGNUP MODAL-BTN"> X2 :
-    // <BUTTON CLASS="BTN-SIGNUP MODAL-BTN> DANS <DIV CLASS="HERO-SECTION"> = FORMAT MOBILE
-      // [DISPLAY:BLOCK] QUAND [@media screen and (max-width: 800px)] SINON EN [DISPLAY:NONE]
-    // <BUTTON CLASS="BTN-SIGNUP MODAL-BTN> DANS <DIV CLASS="HERO-CONTENT"> = FORMAT DESKTOP
-      // [DISPLAY:NONE] QUAND [@media screen and (max-width: 800px)] SINON EN [DISPLAY:BLOCK]
+    // <BUTTON CLASS="BTN-SIGNUP MODAL-BTN> IN <DIV CLASS="HERO-SECTION"> = MOBILE FORMAT
+      // [DISPLAY:BLOCK] WHEN [@media screen and (max-width: 800px)] OTHERWISE [DISPLAY:NONE]
+    // <BUTTON CLASS="BTN-SIGNUP MODAL-BTN> IN <DIV CLASS="HERO-CONTENT"> = DESKTOP FORMAT
+      // [DISPLAY:NONE] WHEN [@media screen and (max-width: 800px)] OTHERWISE [DISPLAY:BLOCK]
 
   const formData = document.querySelectorAll(".formData");
-  // <DIV CLASS="FORMDATA"> X7 DU <FORM> : ENGLOBE LES X7 <LABEL> + <INPUT>
+  // <DIV CLASS="FORMDATA"> X7 DU <FORM> : INCLUDING X7 <LABEL> + <INPUT>
 
 // MODAL_EVENT ####################################################################
 
@@ -36,18 +36,19 @@
       x.className = "topnav";
     }
   }
-// FONCTION APPELLÉE PAR <A CLASS="ICON" ONCLICK="EDITNAV()">
-// (EN [DISPLAY:NONE] POUR DESKTOP & [DISPLAY:BLOCK] POUR MOBILE/TABLETTE) :
-  // SI "ONCLICK" SUR <A CLASS="ICON"> ALORS :
+// FUNCTION IS CALLED BY <A CLASS="ICON" ONCLICK="EDITNAV()">
+// (AT [DISPLAY:NONE] FOR DESKTOP & [DISPLAY:BLOCK] FOR MOBILE/TABLETTE) :
+  // IF "ONCLICK" ON <A CLASS="ICON"> THEN :
     // <DIV ID="MYTOPNAV" CLASS="TOPNAV"> = [+CLASS="TOPNAV RESPONSIVE"]
-  // SINON :
+  // OTHERWISE :
     // <DIV ID="MYTOPNAV" CLASS="TOPNAV">
 
-// MON_CODE ###########################################################################################################################################################
+// MY_CODE ############################################################################################################################################################
 
 // VALIDATION_FORMULAIRE ##########################################################
-// CTRL > TOUS LES CTRL [INPUT_*_CHECK] DANS [FORM_CHECK[*]] DOIVENT ÊTRE À "TRUE".
+// CTRL > ALL THE CTRL [INPUT_*_CHECK] IN [FORM_CHECK[*]] THEY MUST BE SET TO "TRUE".
 
+  // DECLARATION OF CONTROL VARIABLES
   let input_first_check = false
   let input_last_check = false
   let input_email_check = false
@@ -56,6 +57,7 @@
   let input_location_check = false
   let input_checkbox_check = false
 
+  // INSERTION IN THE CONTROL ARRAY
   let form_check = [
       input_first_check,
       input_last_check,
@@ -65,14 +67,15 @@
       input_location_check,
       input_checkbox_check]
 
-  let form = document.querySelector("form")
+  let form = document.querySelector("form") // RECOVERY OF THE FORM'S HTML TAG <FORM>.
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", (event) => { // EVERY TIME YOU CLICK ON THE SUBMIT FORM BUTTON :
 
-    event.preventDefault(); // BLOCAGE_RECHARGEMENT_PAGE
+    event.preventDefault(); // PAGE RELOAD BLOCKED (JAVA FAILURE)
 
-    console.log(form_check)
+    console.clear()
 
+    // EXECUTION OF CONTROL FUNCTIONS
     ctrl_first_last_name()
     ctrl_email()
     ctrl_birthdate()
@@ -80,25 +83,38 @@
     ctrl_locate_tour()
     ctrl_checkbox()
 
-    let compteur = 0
+    // DISPLAYING MAINTENANCE MESSAGES IN THE JS CONSOLE
+    console.log("Champ 'Prénom' : ", form_check[0],
+    "\nChamp 'Nom' : ", form_check[1],
+    "\nChamp 'E-mail' : ", form_check[2],
+    "\nChamp 'Date de naissance' : ", form_check[3],
+    "\nChamp du nombre de tournoi(s) : ", form_check[4],
+    "\nChamp de localisation du tournoi : ", form_check[5],
+    "\nChamp des conditions d'utilisation : ", form_check[6],
+    )
 
-    for (let i = 0; i < form_check.length; i++) {
+    let counter = 0
 
-      if (form_check[i] == true) {
+    for (let i = 0; i < form_check.length; i++) { // WE LOOP OVER EACH OF THE [INPUT_*_CHECK] IN ARRAY [FORM_CHECK[*]]
 
-        compteur += 1
+      if (form_check[i] == true) { // IF ONE CTRL [INPUT_*_CHECK] IN [FORM_CHECK[*]] IS "TRUE"
 
-      } 
+        counter += 1 // THE COUNTER INCREASES BY 1
+
+      }
 
     }
 
-    if (compteur == form_check.length) {
+    if (counter == form_check.length) { // IF THE COUNTER IS EQUAL TO THE LENGTH OF THE TABLE (7 CTRL/7 CTRL), VALIDATION IS OK.
 
-// MÉTHODE_1 ----------------------------
-// = ON VIDE L'INTÉGRALITÉ DU <FORM> POUR Y INJECTER UN HTML ENTIÈREMENT PERSONNALISÉ,
-// EN RECRÉANT LE BOUTON À L'IDENTIQUE, QUI REPREND DONC TOUS SES ATTRIBUTS.
-// LE CSS [.THE_END] & [.THE_END P] EST CRÉÉ EN CONSÉQUENCE.
+// METHOD_1 -----------------------------
+// = WE EMPTY THE ENTIRE <FORM> TO INJECT FULLY CUSTOMISED HTML,
+// BY RECREATING THE BUTTON IDENTICALLY, WHICH TAKES ON ALL ITS ATTRIBUTES.
+// THE CSS [.THE_END] & [.THE_END P] IT IS ACCORDINGLY CREATED.
 
+      console.log("TOUTES LES VALEURS SONT RENSEIGNÉES CORRECTEMENTS, AFFICHER LA VALIDATION DE L'INSCRIPTION.")
+
+      // INTERPOLATION HTML :
       let the_end = `
       <div class="the_end">
       <p>Merci pour<br>
@@ -107,14 +123,14 @@
       <input class="btn-submit" type="submit" value="Fermer">
       `
 
-      form.innerHTML = the_end
+      form.innerHTML = the_end // INJECTION OF HTML INTERPOLATION INTO THE FORM.
 
-      let input_submit = document.querySelector(".btn-submit")
+      let input_submit = document.querySelector(".btn-submit") // RECOVERY THE FORM SUBMIT BUTTON.
 
-      input_submit.addEventListener("click", () => {
-      
-        modalbg.removeAttribute("style")
-      
+      input_submit.addEventListener("click", () => { // EACH TIME A SUBMIT BUTTON IS SELECT OR DESELECT ...
+
+        modalbg.removeAttribute("style") // WE REMOVE THE ATTRIBUTE "STYLE="DISPLAY: BLOCK;" FROM <DIV> INCLUDING <FORM>.
+
       })
 
     } else {
@@ -125,39 +141,41 @@
 
   });
 
-// FUNCTION_CTRL_PRÉNOM_&_NOM #####################################################
-// CTRL > UN MINIMUM DE 2 CARACTÈRES, NON VIDE, DOIT ÊTRE SAISI.
+// FUNCTION_CTRL_FIRST_&_LAST_NAME ################################################
+// CTRL > A MINIMUM OF 2 NO-EMPTY CHARACTERS MUST BE ENTERED.
 
-function ctrl_first_last_name() {
+// THE MECHANICS OF THIS TEST ARE IDENTICAL FOR ALL TESTS.
 
-  for (let i = 0; i < input_array.length; i++) { // ON BOUCLE SUR CHACUN DES <INPUT> DU TABLEAU.
+function ctrl_first_last_name() { // CREATION OF A DEDICATED CONTROL FUNCTION
 
-    let input_array_i_value = input_array[i].value // ON RÉCUPÈRE SA VALEUR ...
+  for (let i = 0; i < input_array.length; i++) { // WE LOOP OVER EACH OF THE <INPUT> IN THE ARRAY.
 
-    if (input_array_i_value.length < 2) { // SI LE CTRL EST KO :
+    let input_array_i_value = input_array[i].value // WE RECOVER ITS VALUE ...
 
-      if (input_array[i] === input_first) { // ET QUE CELA CONCERNE L'INPUT #FIRST
+    if (input_array_i_value.length < 2) { // IF CTRL IS KO :
 
-        form_check[0] = false
-        parent_first.setAttribute("data-error", "Il faut un minimum de 2 caractères.")
+      if (input_array[i] === input_first) { // AND THAT THIS CONCERNS INPUT #FIRST
 
-      } else { // ET QUE CELA CONCERNE L'INPUT #LAST
+        form_check[0] = false // CONTROL VARIABLE KO
+        parent_first.setAttribute("data-error", "Il faut un minimum de 2 caractères.") // SEE COMMENT LINE 218 IN MODAL.CSS FOR DATA-ERROR
 
-        form_check[1] = false
+      } else { // AND THAT THIS CONCERNS INPUT #LAST
+
+        form_check[1] = false // CONTROL VARIABLE KO
         parent_last.setAttribute("data-error", "Il faut un minimum de 2 caractères.")
 
       }
 
-    } else { // SI LE CTRL EST OK :
+    } else { // IF CTRL IS OK :
 
-      if (input_array[i] === input_first) { // ET QUE CELA CONCERNE L'INPUT #FIRST
+      if (input_array[i] === input_first) { // AND THAT THIS CONCERNS INPUT #FIRST
 
-        form_check[0] = true
+        form_check[0] = true // CONTROL VARIABLE OK
         parent_first.removeAttribute("data-error")
 
-      } else { // ET QUE CELA CONCERNE L'INPUT #LAST
+      } else { // AND THAT THIS CONCERNS INPUT #LAST
 
-        form_check[1] = true
+        form_check[1] = true // CONTROL VARIABLE OK
         parent_last.removeAttribute("data-error")
 
       }
@@ -168,33 +186,35 @@ function ctrl_first_last_name() {
 
 }
 
-// CTRL_PRÉNOM_&_NOM ##############################################################
+// CTRL_FIRST_&_LAST_NAME #########################################################
 
-    let input_first = document.getElementById("first")
-    let input_last = document.getElementById("last")
-    let parent_first = input_first.parentElement
-    let parent_last = input_last.parentElement
-    let input_array = [input_first, input_last]
+    let input_first = document.getElementById("first") // RECOVERY OF THE FORM'S HTML TAG <INPUT ID="FIRST">
+    let input_last = document.getElementById("last") // IDENTICAL FOR <INPUT ID="LAST">
+    let input_array = [input_first, input_last] // INSERTION IN SPECIFIC ARRAY
+    let parent_first = input_first.parentElement // RECOVERY THE PARENT HTML TAG FROM <INPUT ID="FIRST"> = <DIV CLASS="FORMDATA">
+    let parent_last = input_last.parentElement // IDENTICAL FOR <INPUT ID="LAST">
 
-    for (let i = 0; i < input_array.length; i++) { // ON BOUCLE SUR CHACUN DES <INPUT> DU TABLEAU.
+    for (let i = 0; i < input_array.length; i++) { // WE LOOP OVER EACH OF THE <INPUT> IN THE ARRAY
 
-      input_array[i].addEventListener ('change', () => { // À CHAQUE FOIS QU'UN <INPUT> EST DÉSÉLECTIONNÉ ...
+      input_array[i].addEventListener ('change', () => { // EACH TIME AN <INPUT> IS SELECT OR DESELECT ...
 
-        ctrl_first_last_name()
+        ctrl_first_last_name() // EXECUTION OF THE ASSOCIATED FUNCTION
 
       })
 
     }
 
 // FUNCTION_CTRL_E-MAIL ###########################################################
-// CTRL > MODÈLE REGEX : [a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+
+// CTRL > MODEL REGEX : [a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+
 
     function ctrl_email() {
 
+      let parent_mail = input_mail.parentElement
+      let regex_mail = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
       let input_mail_value = input_mail.value
-      let resultat = regex_mail.test(input_mail_value)
+      let result = regex_mail.test(input_mail_value)
 
-      if (resultat) {
+      if (result) {
 
         form_check[2] = true
         parent_mail.removeAttribute("data-error")
@@ -211,8 +231,6 @@ function ctrl_first_last_name() {
 // CTRL_E-MAIL ####################################################################
 
     let input_mail = document.getElementById("email")
-    let parent_mail = input_mail.parentElement
-    let regex_mail = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
 
     input_mail.addEventListener ('change', () => {
 
@@ -220,12 +238,16 @@ function ctrl_first_last_name() {
 
     })
 
-// FUNCTION_CTRL_DATE_DE_NAISSANCE ################################################
-// CTRL > LA DATE NE PEUT PAS ÊTRE DANS LE FUTUR.
-// CTRL > L'UTILISATEUR NE PEUT PAS ÊTRE MINEUR.
+// FUNCTION_CTRL_BIRTHDATE ########################################################
+// CTRL > THE DATE CANNOT BE IN THE FUTURE.
+// CTRL > THE USER CANNOT BE A MINOR.
 
 function ctrl_birthdate() {
 
+  let parent_birthdate = input_birthdate.parentElement
+  let date = new Date();
+  let date_format_ok_string = date.toISOString().split('T')[0]
+  let date_format_ok_obj = new Date(date_format_ok_string)
   let input_birthdate_value_string = input_birthdate.value
   let input_birthdate_value_obj = new Date(input_birthdate_value_string)
   let difference = Math.abs(date_format_ok_obj-input_birthdate_value_obj)
@@ -237,8 +259,8 @@ function ctrl_birthdate() {
     parent_birthdate.setAttribute("data-error", "Vous ne pouvez pas être né dans le futur.")
 
   } else if (days < 6574) {
-  // 6570 = 18 x 365 JOURS(1 AN).
-  // 6574 = 6570 + 4 jours (X4 ANNÉES BISSEXTILES SUR LES 18 DERNIÈRES ANNÉES).
+  // 6570 = 18 x 365 DAYS (1 YEAR).
+  // 6574 = 6570 + 4 DAYS (X4 LEAP YEARS BISSEXTILES OVER THE LAST 18 YEARS).
 
     form_check[3] = false
     parent_birthdate.setAttribute("data-error", "Il faut la majorité pour pouvoir s'inscrire.")
@@ -256,13 +278,9 @@ function ctrl_birthdate() {
 
 }
 
-// CTRL_DATE_DE_NAISSANCE #########################################################
+// CTRL_BIRTHDATE #################################################################
 
 let input_birthdate = document.getElementById("birthdate");
-let parent_birthdate = input_birthdate.parentElement
-let date = new Date();
-let date_format_ok_string = date.toISOString().split('T')[0]
-let date_format_ok_obj = new Date(date_format_ok_string)
 
 input_birthdate.addEventListener ('change', () => {
 
@@ -270,15 +288,15 @@ input_birthdate.addEventListener ('change', () => {
 
 })
 
-// FUNCTION_CTRL_NB_TOURNOIS ######################################################
-// CTRL > UNE VALEUR NUMÉRIQUE POSITIVE DOIT ÊTRE SAISIE.
+// FUNCTION_CTRL_NB_TOURNAMENTS ###################################################
+// CTRL > A POSITIVE NUMERIC VALUE MUST BE ENTERED.
 
 function ctrl_nb_tour() {
 
   let input_qty_value = input_qty.value
-  let resultat = regex_qty.test(input_qty_value)
+  let result = regex_qty.test(input_qty_value)
 
-  if (resultat) {
+  if (result) {
 
     form_check[4] = true
     parent_qty.removeAttribute("data-error")
@@ -294,8 +312,8 @@ function ctrl_nb_tour() {
 // CTRL_NB_TOURNOIS ###############################################################
 
 let input_qty = document.getElementById("quantity")
-let regex_qty = new RegExp("^[0-9]+$")
 let parent_qty = input_qty.parentElement
+let regex_qty = new RegExp("^[0-9]+$")
 
 input_qty.addEventListener ('change', () => {
 
@@ -303,11 +321,12 @@ input_qty.addEventListener ('change', () => {
 
 })
 
-// FUNCTION_CTRL_LOCALISATION_TOURNOI #############################################
-// CTRL > UN BOUTON RADIO DOIT ÊTRE SÉLECTIONNÉ.
+// FUNCTION_CTRL_LOCATION_TOURNAMENT ##############################################
+// CTRL > A RADIO BUTTON MUST BE SELECTED.
 
 function ctrl_locate_tour() {
-
+  let parent_location = input_location[0].parentElement
+  
   for (let i = 0; i < input_location.length; i++) {
 
       if (input_location[i].checked) {
@@ -327,10 +346,9 @@ function ctrl_locate_tour() {
 
 }
 
-// CTRL_LOCALISATION_TOURNOI ######################################################
+// CTRL_LOCATION_TOURNAMENT #######################################################
 
 let input_location = document.querySelectorAll("input[name='location']")
-let parent_location = input_location[0].parentElement
 
   for (let i = 0; i < input_location.length; i++) {
 
@@ -343,8 +361,8 @@ let parent_location = input_location[0].parentElement
   }
 
 // FUNCTION_CTRL_CHECKBOX #########################################################
-// CTRL > LA CASE DES CONDITIONS D'UTILISATION DOIT ÊTRE COCHÉE.
-// CTRL > L'AUTRE CASE EST FACULTATIVE.
+// CTRL > THE TERMS OF USE BOX MUST BE TICKED.
+// CTRL > THE OTHER BOX IS OPTIONAL.
 
 function ctrl_checkbox() {
 
@@ -394,15 +412,15 @@ for (let i = 0; i < input_checkbox.length; i++) {
 
 }
 
-// FERMETURE_FORMULAIRE ###########################################################
-// PERMETTRE LA FERMETURE DU FORMULAIRE LORS D'UN CLIC SUR LA CROIX.
+// CLOSING_THE_FORM ###############################################################
+// CLOSE THE FORM WHEN THE CROSS IS CLICKED.
 
 let span_close = document.querySelector(".close")
 
 span_close.addEventListener("click", () => {
 
   modalbg.removeAttribute("style")
-  // ON SUPPRIME L'ATTRIBUT [STYLE="DISPLAY: BLOCK;"] INJECTÉ PAR [FUNCTION LAUNCHMODAL()].
-  // [FUNCTION LAUNCHMODAL()] QUI EST LANCÉE LORS DU CLICK SUR LE BOUTON "JE M'INSCRIS"
+  // WE REMOVE THE [STYLE="DISPLAY: BLOCK;"] INJECTED BY [FUNCTION LAUNCHMODAL()].
+  // [FUNCTION LAUNCHMODAL()] WHICH IS LAUNCHED WHEN THE "I REGISTER" BUTTON IS CLICKED.
 
 })

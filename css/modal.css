@@ -1,5 +1,5 @@
 
-/* CODE_EN_PLACE ################################################################################################################################################### */
+/* CODE_IN_PLACE ################################################################################################################################################### */
 
 :root {
     --font-default: "DM Sans", Arial, Helvetica, sans-serif;
@@ -212,28 +212,24 @@
     height: 48px;
   }
 
-/* CODE_MODIF_START ############################################################ */
+/* CODE_CHANGE_START ########################################################### */
 
 /*
-QUAND [.FORMDATA] OU [.CHECKBOX2-LABEL] POSSÈDE L'ATTRIBUT [DATA-ERROR]
-(INJECTÉ PAR LE JS), ALORS LE [AFTER] A CETTE MISE EN FORME ET LE CONTENU
-DE CE [AFTER] EST DÉFINIT PAR LA VALEUR DE LA PROPRIÉTÉ [CONTENT].
-LA VALEUR DE LA PROPRIÉTÉ [CONTENT] [ATTR(DATA-ERROR)] CORRESPOND
-À LA VALEUR DONNÉE À L'ATTRIBUT [DATA-ERROR] DANS LE JS.
+WHEN [.FORMDATA] OR [.CHECKBOX2-LABEL] HAS THE [DATA-ERROR] ATTRIBUTE
+(INJECTED BY THE JS), THEN THE [AFTER] HAS THIS FORMATTING AND THE CONTENT
+OF THIS [AFTER] IS DEFINED BY THE VALUE OF THE [CONTENT] PROPERTY.
+THE VALUE OF THE [CONTENT] [ATTR(DATA-ERROR)] PROPERTY MATCHES
+TO THE VALUE GIVEN TO THE [DATA-ERROR] ATTRIBUTE IN THE JS.
 */
 
   .formData[data-error]::after, .checkbox2-label[data-error]::after {
     content: attr(data-error);
-    /* font-size: 0.4em; */
     font-size: 17px;
     color: #e54858;
     display: block;
-    /* margin-top: 7px; */
-    /* margin-bottom: 10px; */
     margin-top: 10px;
     text-align: left;
     line-height: 0.3;
-    /* opacity: 0; */
     transition: 0.3s;
   }
 
@@ -253,7 +249,7 @@ LA VALEUR DE LA PROPRIÉTÉ [CONTENT] [ATTR(DATA-ERROR)] CORRESPOND
     font-weight: bolder;
   }
 
-/* LE CODE COMMENTÉ CI-DESSOUS N'EST PAS NÈCESSAIRE À MES YEUX. */
+/* THE CODE COMMENTED BELOW IS NOT NECESSARY IN MY OPINION. */
 
   /* .formData[data-error-visible="true"]::after {
     opacity: 1;
@@ -267,7 +263,7 @@ LA VALEUR DE LA PROPRIÉTÉ [CONTENT] [ATTR(DATA-ERROR)] CORRESPOND
       color: red;
   } */
 
-/* CODE_MODIF_STOP ############################################################# */
+/* CODE_CHANGE_STOP ############################################################ */
 
   .checkbox-label,
   .checkbox2-label {
@@ -564,7 +560,7 @@ LA VALEUR DE LA PROPRIÉTÉ [CONTENT] [ATTR(DATA-ERROR)] CORRESPOND
     }
   }
 
-/* MON_CODE ######################################################################################################################################################## */
+/* MY_CODE ######################################################################################################################################################### */
 
 .the_end {
   display: flex;
@@ -578,11 +574,6 @@ LA VALEUR DE LA PROPRIÉTÉ [CONTENT] [ATTR(DATA-ERROR)] CORRESPOND
   text-align: center;
 }
 
-/* POUR_EVOLUTION ############################################################## */
+/* FOR_EVOLUTION ############################################################### */
 
-/* .btn-submit:disabled {
-  background: black;
-}
-.btn-submit:disabled:hover {
-  cursor: not-allowed;
-} */
+/* TRY_CATCH ? */
